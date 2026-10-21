@@ -1,0 +1,72 @@
+---
+import '../styles/tokens.css';
+import '@fontsource-variable/nunito';
+import '@fontsource-variable/fraunces';
+
+const swatches = ['bg', 'surface', 'surface-2', 'border', 'text', 'text-muted', 'accent', 'burgundy', 'teal'];
+---
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Uji token desain</title>
+    <style is:global>
+      body {
+        margin: 0;
+        padding: var(--space-8);
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: var(--text-base);
+        line-height: 1.7;
+      }
+      h1 { font-family: var(--font-display); font-size: var(--text-2xl); margin: 0 0 var(--space-4); }
+      .muted { color: var(--text-muted); }
+      a { color: var(--link); }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: var(--space-6);
+        max-width: 40rem;
+      }
+      .btn {
+        background: var(--accent);
+        color: var(--accent-ink);
+        border: 0;
+        border-radius: var(--radius-pill);
+        padding: var(--space-2) var(--space-6);
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+        gap: var(--space-3);
+        margin-top: var(--space-8);
+      }
+      .swatch { border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; font-size: var(--text-sm); }
+      .swatch div { height: 3.5rem; }
+      .swatch span { display: block; padding: var(--space-2); }
+    </style>
+  </head>
+  <body>
+    <h1>Uji token desain</h1>
+    <p class="muted">Teks redup untuk keterangan tambahan.</p>
+    <div class="card">
+      <h2 style="font-family: var(--font-display); margin-top: 0;">Judul kartu</h2>
+      <p>Ini paragraf isi dengan <a href="#">sebuah tautan</a> di dalamnya.</p>
+      <button class="btn">Tombol madu</button>
+    </div>
+    <div class="swatches">
+      {swatches.map((name) => (
+        <div class="swatch">
+          <div style={`background: var(--${name})`}></div>
+          <span>--{name}</span>
+        </div>
+      ))}
+    </div>
+  </body>
+</html>
