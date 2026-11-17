@@ -1,0 +1,39 @@
+<button type="button" id="tombol-tema" aria-label="Ganti tema terang atau gelap">
+	<span class="ke-gelap" aria-hidden="true">Gelap</span>
+	<span class="ke-terang" aria-hidden="true">Terang</span>
+</button>
+
+<script>
+	const tombol = document.getElementById('tombol-tema');
+	const root = document.documentElement;
+
+	function sinkron() {
+		tombol?.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
+	}
+
+	tombol?.addEventListener('click', () => {
+		const baru = root.dataset.theme === 'dark' ? 'light' : 'dark';
+		root.dataset.theme = baru;
+		try { localStorage.setItem('tema', baru); } catch {}
+		sinkron();
+	});
+
+	sinkron();
+</script>
+
+<style>
+	button {
+		background: none;
+		border: 1px solid var(--border);
+		border-radius: var(--radius-pill);
+		color: var(--text);
+		font: inherit;
+		font-size: var(--text-sm);
+		padding: var(--space-1) var(--space-4);
+		cursor: pointer;
+	}
+	button:hover { border-color: var(--accent); }
+	.ke-terang { display: none; }
+	:global(:root[data-theme='dark']) .ke-gelap { display: none; }
+	:global(:root[data-theme='dark']) .ke-terang { display: inline; }
+</style>

@@ -36,6 +36,20 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		{image && <meta property="og:image" content={new URL(image.src, Astro.url)} />}
+        <script is:inline>
+	(function () {
+		try {
+			var simpan = localStorage.getItem('tema');
+			var tema =
+				simpan === 'light' || simpan === 'dark'
+					? simpan
+					: matchMedia('(prefers-color-scheme: light)').matches
+						? 'light'
+						: 'dark';
+			document.documentElement.dataset.theme = tema;
+		} catch (e) {}
+	})();
+</script>
 	</head>
 	<body>
 		<SiteHeader />
@@ -51,3 +65,4 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		padding: var(--space-12) var(--space-6);
 	}
 </style>
+

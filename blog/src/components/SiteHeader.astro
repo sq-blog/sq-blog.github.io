@@ -1,5 +1,6 @@
 ---
 import { SITE_TITLE } from '../consts';
+import ThemeToggle from './ThemeToggle.astro';
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 
@@ -15,15 +16,18 @@ const aktif = (href: string) => path === href || path.startsWith(href + '/');
 <header>
 	<div class="bar">
 		<a class="merek" href="/">{SITE_TITLE}</a>
-		<nav aria-label="Utama">
-			{
-				links.map((l) => (
-					<a href={l.href} aria-current={aktif(l.href) ? 'page' : undefined}>
-						{l.label}
-					</a>
-				))
-			}
-		</nav>
+		<div class="kanan">
+			<nav aria-label="Utama">
+				{
+					links.map((l) => (
+						<a href={l.href} aria-current={aktif(l.href) ? 'page' : undefined}>
+							{l.label}
+						</a>
+					))
+				}
+			</nav>
+			<ThemeToggle />
+		</div>
 	</div>
 </header>
 
@@ -47,6 +51,11 @@ const aktif = (href: string) => path === href || path.startsWith(href + '/');
 		font-weight: 700;
 		color: var(--text);
 		text-decoration: none;
+	}
+	.kanan {
+		display: flex;
+		align-items: center;
+		gap: var(--space-6);
 	}
 	nav {
 		display: flex;
