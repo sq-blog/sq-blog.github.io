@@ -1,4 +1,4 @@
-/* tokens.css: fondasi desain sq-blog */
+/* tokens.css: fondasi desain sq-blog. Tema slate, terang = dasar. */
 
 :root {
   /* Jarak */
@@ -29,36 +29,34 @@
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --dur-fast: 150ms;
   --dur-base: 300ms;
-}
 
-/* Tema gelap = bawaan ("perpustakaan madu") */
-:root {
-  color-scheme: dark;
-  --bg: #12100e;
-  --surface: #1c1815;
-  --surface-2: #26201b;
-  --border: #3a3028;
-  --text: #f3e9d8;
-  --text-muted: #b9a98f;
+  /* Warna: tema terang slate (dasar) */
+  color-scheme: light;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --border: #cbd5e1;
+  --text: #0f172a;
+  --text-muted: #475569;
   --accent: #f2b134;
   --accent-ink: #1a1306;
-  --link: #f2b134;
-  --glow: rgba(255, 207, 107, 0.25);
+  --link: #1d4ed8;
+  --glow: rgba(242, 177, 52, 0.25);
   --burgundy: #7a2e3b;
   --teal: #2f5d5b;
 }
 
-/* Tema terang, aktif jika <html> diberi data-theme="light" */
-:root[data-theme='light'] {
-  color-scheme: light;
-  --bg: #fff8e8;
-  --surface: #ffffff;
-  --surface-2: #fdf0d2;
-  --border: #ecdcb8;
-  --text: #2a2118;
-  --text-muted: #6b5a43;
+/* Tema gelap slate, aktif jika <html> diberi data-theme="dark" */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --surface-2: #273449;
+  --border: #334155;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
   --accent: #f2b134;
   --accent-ink: #1a1306;
-  --link: #8a5a00;
-  --glow: rgba(217, 154, 31, 0.25);
+  --link: #93c5fd;
+  --glow: rgba(242, 177, 52, 0.25);
 }

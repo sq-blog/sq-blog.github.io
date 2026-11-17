@@ -1,12 +1,12 @@
 // Data global situs. Ubah di sini, semua halaman ikut berubah.
 
-export const SITE_TITLE = 'Meja Catatan';
+export const SITE_TITLE = 'SandBoxqi';
 export const SITE_DESCRIPTION =
-	'Catatan Syaoqi tentang eksperimen yang gagal, kode yang error, dan apa yang dipelajari dari keduanya.';
+	'Catatan Syaoqi tentang eksperimen yang gagal, kode yang error, paragraf yang terbengkalai, ide yang terlupakan, dan apa yang dipelajari ......';
 
-// Satu baris identitas di atas narasi Home. Ubah sesuai keinginan.
-export const IDENTITAS = 'Syaoqi, dari fisika ke data dan software';
+// identitas penulis dan orang bingung ini
+export const IDENTITAS = '.... dari baris ke baris';
 
-// Periksa lagi: handle LinkedIn di catatan lain tertulis msyaoqiramadhan.
+// apakah perlu tambahan logo?
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/msyaoqi/';
 export const GITHUB_URL = 'https://github.com/Syaoqi24';
