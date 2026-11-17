@@ -7,6 +7,10 @@ import { defineConfig, fontProviders } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://sq-blog.github.io',
+	i18n: {
+		locales: ['id', { path: 'en', codes: ['en-GB', 'en'] }],
+		defaultLocale: 'id',
+	},
 	integrations: [mdx(), sitemap()],
 	fonts: [
 		{
