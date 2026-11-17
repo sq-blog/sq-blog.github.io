@@ -1,0 +1,31 @@
+---
+import { GITHUB_URL, LINKEDIN_URL } from '../consts';
+---
+
+<footer>
+	<p>Ditulis oleh Syaoqi.</p>
+	<p class="tautan">
+		<a href={LINKEDIN_URL} rel="noopener">LinkedIn</a>
+		<a href={GITHUB_URL} rel="noopener">GitHub</a>
+	</p>
+</footer>
+
+<style>
+	footer {
+		max-width: 68rem;
+		margin: var(--space-12) auto 0;
+		padding: var(--space-6);
+		border-top: 1px solid var(--border);
+		text-align: center;
+		color: var(--text-muted);
+		font-size: var(--text-sm);
+	}
+	p {
+		margin: 0 0 var(--space-2);
+	}
+	.tautan {
+		display: flex;
+		justify-content: center;
+		gap: var(--space-6);
+	}
+</style>
