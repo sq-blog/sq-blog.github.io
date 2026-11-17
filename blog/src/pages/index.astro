@@ -1,43 +1,157 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+import { IDENTITAS, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Base from '../layouts/Base.astro';
+
+// Semua tulisan, terbaru di atas. Nomor mengikuti urutan terbit (001 = tulisan pertama).
+const semua = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const menu = semua.slice(0, 3).map((post, i) => ({
+	post,
+	nomor: String(semua.length - i).padStart(3, '0'),
+}));
+
+const tanggal = (d: Date) =>
+	d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1> Hello, YOU🐰ᩚ!</h1>
-			<p>
-				Halaman pembuka ini memuat kebohongan. Tiga, paling banyak.
-			</p>
-			<p>
-				Aku tidak menguntit halaman kosong ini.<br>
-				(Masih sepi selama beberapa hari.)<br>
-				Quinn menutup bukunya dan tersenyum. “Berhentilah memikirkannya. Tulis saja, dan jadikan bahan pembicaraan kita.”
-				<br>Jadi, aku menulis untukmu.
-			</p>
-			<p>
-				Akankah ada beda antara diperhatikan dan tidak? Dalam mekanika kuantum, ada. Tapi “diamati” bukan soal dipandang, melainkan disentuh alat ukur: hasil ukur sebuah elektron baru menjadi pasti setelah ia berinteraksi dengannya. Manusia bukan elektron. Namun kita juga punya dua keadaan: satu saat sendirian, satu saat ada yang melihat. Bedanya, atom tidak pernah berpura-pura.
-			</p>
-			<p>Quinn tidak pernah membuang masakan yang gagal. Ia menyebutnya data. Aku punya banyak: eksperimen yang tidak berhasil, kode yang error, kalimat yang tidak selesai, dan satu-dua hal yang seharusnya tidak kuakui di depan orang asing.</p>
-			<p>Blog ini aku jadikan sebagai sandbox. Tempat mencoba apa saja, dan boleh rusak.</p>
-			<p>
-				Kamu sudah membaca sejauh ini. Kita bukan orang asing lagi.<br>
-				(Kamu masih menghitung kebohongannya, kan?)
-			</p>
-			<p>
-				Duduklah. Menu hari ini kegagalan, disajikan hangat.<br>
-				Quinn sudah menyiapkan hidangannya.<br>
-				Untukmu.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Base title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<article class="narasi">
+		<p class="identitas">{IDENTITAS}</p>
+		<h1>Halaman pembuka ini memuat kebohongan. Tiga, paling banyak.</h1>
+
+		<p>
+			Aku tidak menguntit halaman kosong ini.<br />
+			<span class="bisik">(Masih sepi selama beberapa hari.)</span><br />
+			Quinn menutup bukunya dan tersenyum. “Berhentilah memikirkannya. Tulis saja, dan jadikan bahan pembicaraan kita.”<br />
+			Jadi, aku menulis untukmu.
+		</p>
+		<p>
+			Akankah ada beda antara diperhatikan dan tidak? Dalam mekanika kuantum, ada. Tapi “diamati” bukan soal dipandang, melainkan disentuh alat ukur: hasil ukur sebuah elektron baru menjadi pasti setelah ia berinteraksi dengannya. Manusia bukan elektron. Namun kita juga punya dua keadaan: satu saat sendirian, satu saat ada yang melihat. Bedanya, atom tidak pernah berpura-pura.
+		</p>
+		<p>
+			Quinn tidak pernah membuang masakan yang gagal. Ia menyebutnya data. Aku punya banyak: eksperimen yang tidak berhasil, kode yang error, kalimat yang tidak selesai, dan satu-dua hal yang seharusnya tidak kuakui di depan orang asing.
+		</p>
+		<p>Blog ini aku jadikan sebagai sandbox. Tempat mencoba apa saja, dan boleh rusak.</p>
+		<p>
+			Kamu sudah membaca sejauh ini. Kita bukan orang asing lagi.<br />
+			<span class="bisik">(Kamu masih menghitung kebohongannya, kan?)</span>
+		</p>
+		<p>
+			Duduklah. Menu hari ini kegagalan, disajikan hangat.<br />
+			Quinn sudah menyiapkan hidangannya.<br />
+			Untukmu.
+		</p>
+		<p><a href="#menu">Lihat menunya</a></p>
+	</article>
+
+	<section class="menu" id="menu" aria-labelledby="menu-judul">
+		<div class="kepala">
+			<h2 id="menu-judul">Menu hari ini</h2>
+			<a href="/blog">Semua catatan</a>
+		</div>
+		{
+			menu.length > 0 ? (
+				<ol>
+					{menu.map(({ post, nomor }) => (
+						<li>
+							<span class="nomor">{nomor}</span>
+							<div class="isi">
+								<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+								<p>{post.data.description}</p>
+							</div>
+							<time datetime={post.data.pubDate.toISOString()}>{tanggal(post.data.pubDate)}</time>
+						</li>
+					))}
+				</ol>
+			) : (
+				<p class="kosong">Belum ada menu hari ini.</p>
+			)
+		}
+	</section>
+</Base>
+
+<style>
+	.narasi,
+	.menu {
+		max-width: 38rem;
+		margin-inline: auto;
+	}
+	.identitas {
+		margin: 0 0 var(--space-4);
+		color: var(--text-muted);
+		font-size: var(--text-sm);
+	}
+	h1 {
+		font-size: var(--text-2xl);
+		margin-bottom: var(--space-8);
+	}
+	.narasi p {
+		font-family: var(--font-display);
+		font-size: var(--text-lg);
+		line-height: 1.8;
+		margin: 0 0 var(--space-6);
+	}
+	.bisik {
+		color: var(--text-muted);
+		font-style: italic;
+	}
+
+	.menu {
+		margin-top: calc(var(--space-12) * 1.5);
+	}
+	.kepala {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: var(--space-4);
+		padding-bottom: var(--space-2);
+		border-bottom: 3px solid var(--accent);
+	}
+	h2 {
+		font-size: var(--text-xl);
+	}
+	ol {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	li {
+		display: grid;
+		grid-template-columns: 3rem 1fr auto;
+		gap: var(--space-4);
+		padding: var(--space-4) 0;
+		border-bottom: 1px solid var(--border);
+	}
+	.nomor {
+		color: var(--text-muted);
+		font-variant-numeric: tabular-nums;
+	}
+	.isi a {
+		font-family: var(--font-display);
+		font-size: var(--text-lg);
+	}
+	.isi p,
+	time,
+	.kosong {
+		margin: 0;
+		color: var(--text-muted);
+		font-size: var(--text-sm);
+	}
+	.kosong {
+		padding: var(--space-4) 0;
+	}
+	time {
+		white-space: nowrap;
+	}
+
+	@media (max-width: 36rem) {
+		li {
+			grid-template-columns: 2.5rem 1fr;
+		}
+		time {
+			grid-column: 2;
+		}
+	}
+</style>

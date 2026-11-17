@@ -1,0 +1,59 @@
+---
+import { SITE_TITLE } from '../consts';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const links = [
+	{ href: '/blog', label: 'Arsip' },
+	// { href: '/message', label: 'Selipan' }, // aktifkan setelah halaman /message dibuat
+	{ href: '/about', label: 'Tentang' },
+];
+
+const aktif = (href: string) => path === href || path.startsWith(href + '/');
+---
+
+<header>
+	<div class="bar">
+		<a class="merek" href="/">{SITE_TITLE}</a>
+		<nav aria-label="Utama">
+			{
+				links.map((l) => (
+					<a href={l.href} aria-current={aktif(l.href) ? 'page' : undefined}>
+						{l.label}
+					</a>
+				))
+			}
+		</nav>
+	</div>
+</header>
+
+<style>
+	header {
+		border-bottom: 1px solid var(--border);
+	}
+	.bar {
+		max-width: 68rem;
+		margin: 0 auto;
+		padding: var(--space-4) var(--space-6);
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: var(--space-2) var(--space-6);
+	}
+	.merek {
+		font-family: var(--font-display);
+		font-size: var(--text-xl);
+		font-weight: 700;
+		color: var(--text);
+		text-decoration: none;
+	}
+	nav {
+		display: flex;
+		gap: var(--space-6);
+	}
+	nav a[aria-current='page'] {
+		color: var(--text);
+		text-decoration-thickness: 3px;
+	}
+</style>
